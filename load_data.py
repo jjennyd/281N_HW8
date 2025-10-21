@@ -4,6 +4,9 @@ import pyodbc
 import sqlalchemy
 import urllib
 
+
+password = os.getenv('SQL_PASSWORD')
+
 # Load data
 try:
     brands = pd.read_csv('brand_detail.csv')
@@ -14,7 +17,7 @@ except Exception as e:
     raise
 
 # Connect to Azure SQL
-conn_str = 'Driver={ODBC Driver 18 for SQL Server};Server=tcp:day8exercise.database.windows.net,1433;Initial Catalog=Day8Exercise;Persist Security Info=False;User ID=jenny;Password=day8exercise!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+conn_str = f'Driver={{ODBC Driver 18 for SQL Server}};Server=tcp:day8exercise.database.windows.net,1433;Initial Catalog=Day8Exercise;Persist Security Info=False;User ID=jenny;Password={password};MultipleActiveResultSets=False;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;'
 params = urllib.parse.quote_plus(conn_str)
 engine = sqlalchemy.create_engine(f'mssql+pyodbc:///?odbc_connect={params}')
 
