@@ -5,19 +5,25 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-# 1️⃣ Use Python
+# Use Python
 - task: UsePythonVersion@0
   inputs:
     versionSpec: '3.10'
 
-# 2️⃣ Install dependencies including ODBC driver
+# Install dependencies including ODBC driver
 - script: |
     sudo apt-get update
     sudo apt-get install -y unixodbc-dev msodbcsql18
     pip install pandas sqlalchemy pyodbc
   displayName: 'Install dependencies and ODBC driver'
 
-# 3️⃣ Run your data load script
+# Check driver
+- script: |
+    python -c "import pyodbc; print(pyodbc.drivers())"
+  displayName: 'Check available ODBC drivers'
+
+
+# Run your data load script
 - script: |
     python load_data.py
   displayName: 'Load CSV data into Azure SQL'
