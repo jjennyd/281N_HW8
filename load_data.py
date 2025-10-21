@@ -6,6 +6,8 @@ import urllib
 
 
 password = os.getenv('SQL_PASSWORD')
+if not password:
+    raise ValueError("SQL_PASSWORD environment variable not set")
 
 # Load data
 try:
