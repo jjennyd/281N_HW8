@@ -5,10 +5,6 @@ import sqlalchemy
 import urllib
 
 
-password = os.getenv('SQL_PASSWORD')
-if not password:
-    raise ValueError("SQL_PASSWORD environment variable not set")
-
 # Load data
 try:
     brands = pd.read_csv('brand_detail.csv')
@@ -24,7 +20,7 @@ conn_str = (
     f"Server=tcp:day8exercise.database.windows.net,1433;"
     f"Database=Day8Exercise;"
     f"Uid=jenny;"
-    f"Pwd={password};"
+    f"Pwd=day8exercise!;"
     f"Encrypt=yes;"
     f"TrustServerCertificate=yes;"
     f"Connection Timeout=30;"
