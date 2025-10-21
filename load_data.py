@@ -26,19 +26,8 @@ conn_str = (
     f"Connection Timeout=30;"
 )
 
-
 params = urllib.parse.quote_plus(conn_str)
 engine = sqlalchemy.create_engine(f'mssql+pyodbc:///?odbc_connect={params}')
-
-# Test connection
-try:
-    print("🔗 Testing connection to Azure SQL...")
-    with engine.connect() as conn:
-        result = conn.execute("SELECT 1").fetchone()
-        print("✅ Connection successful, test query result:", result)
-except Exception as e:
-    print("❌ Connection failed:", e)
-    raise
 
 # Upload CSVs
 try:
