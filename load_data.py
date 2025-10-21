@@ -17,7 +17,18 @@ except Exception as e:
     raise
 
 # Connect to Azure SQL
-conn_str = f'Driver={{ODBC Driver 18 for SQL Server}};Server=tcp:day8exercise.database.windows.net,1433;Initial Catalog=Day8Exercise;Persist Security Info=False;User ID=jenny;Password={password};MultipleActiveResultSets=False;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;'
+conn_str = (
+    f"Driver={{ODBC Driver 18 for SQL Server}};"
+    f"Server=tcp:day8exercise.database.windows.net,1433;"
+    f"Database=Day8Exercise;"
+    f"Uid=jenny;"
+    f"Pwd={password};"
+    f"Encrypt=yes;"
+    f"TrustServerCertificate=yes;"
+    f"Connection Timeout=30;"
+)
+
+
 params = urllib.parse.quote_plus(conn_str)
 engine = sqlalchemy.create_engine(f'mssql+pyodbc:///?odbc_connect={params}')
 
